@@ -1,0 +1,25 @@
+<div class="container">
+    <h2>Submit Feedback</h2>
+    <form (ngSubmit)="submitFeedback()">
+      <label>Name:</label>
+      <input type="text" [(ngModel)]="feedback.name" name="name" required />
+  
+      <label>Rating (1-5):</label>
+      <input type="number" [(ngModel)]="feedback.rating" name="rating" min="1" max="5" required />
+  
+      <label>Comments:</label>
+      <textarea [(ngModel)]="feedback.comments" name="comments" required></textarea>
+  
+      <button type="submit">Submit</button>
+    </form>
+  
+    <hr />
+  
+    <h3>All Feedback</h3>
+    <div *ngFor="let f of feedbackList" class="feedback-entry">
+      <strong>{{ f.name }}</strong> (Rating: {{ f.rating }})<br />
+      <p>{{ f.comments }}</p>
+      <hr />
+    </div>
+  </div>
+  

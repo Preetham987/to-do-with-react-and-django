@@ -1,0 +1,23 @@
+<h2>Employee Management</h2>
+
+<form (ngSubmit)="submitEmployee()">
+  <input type="text" [(ngModel)]="employee.name" name="name" placeholder="Name" required>
+  <input type="text" [(ngModel)]="employee.department" name="department" placeholder="Department" required>
+  <input type="text" [(ngModel)]="employee.role" name="role" placeholder="Role" required>
+  <input type="number" [(ngModel)]="employee.salary" name="salary" placeholder="Salary" required>
+  <button type="submit">Add Employee</button>
+</form>
+
+<p style="color: green">{{ message }}</p>
+
+<hr>
+
+<label>Filter by Department:</label>
+<input type="text" [(ngModel)]="filter" placeholder="Department name">
+
+<ul>
+  <li *ngFor="let emp of filteredEmployees()">
+    <strong>{{ emp.name }}</strong> – {{ emp.department }} – {{ emp.role }} – ₹{{ emp.salary }}
+    <button (click)="deleteEmployee(emp.id)">❌</button>
+  </li>
+</ul>

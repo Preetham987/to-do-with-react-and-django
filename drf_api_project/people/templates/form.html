@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Form</title>
+</head>
+<body>
+    <h2>Create Person</h2>
+    <form id="personForm">
+        Name: <input type="text" id="name"><br>
+        Email: <input type="email" id="email"><br>
+        Age: <input type="number" id="age"><br>
+        <button type="submit">Create</button>
+    </form>
+
+    <script>
+        document.getElementById('personForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                age: document.getElementById('age').value
+            };
+
+            const response = await fetch('/api/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log("🔁 Response from server:", result);
+            alert('Submitted!');
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

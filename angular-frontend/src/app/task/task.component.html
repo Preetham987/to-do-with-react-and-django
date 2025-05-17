@@ -1,0 +1,35 @@
+<div class="container">
+    <h2>Task Submission</h2>
+  
+    <form (ngSubmit)="submitTask()">
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" [(ngModel)]="task.title" name="title" required />
+      </div>
+  
+      <div>
+        <label for="description">Description:</label>
+        <textarea [(ngModel)]="task.description" name="description" required></textarea>
+      </div>
+  
+      <button type="submit">Submit Task</button>
+    </form>
+  
+    <div *ngIf="message" [style.color]="isError ? 'red' : 'green'" style="margin-top: 10px;">
+      {{ message }}
+    </div>
+  
+    <hr />
+  
+    <h3>Submitted Tasks</h3>
+    <ul *ngIf="tasks.length > 0; else noTasks">
+      <li *ngFor="let t of tasks">
+        <strong>{{ t.title }}</strong>: {{ t.description }}
+      </li>
+    </ul>
+  
+    <ng-template #noTasks>
+      <p>No tasks submitted yet.</p>
+    </ng-template>
+  </div>
+  
